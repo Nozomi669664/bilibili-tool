@@ -3,12 +3,6 @@ chrome.runtime.onInstalled.addListener(function(details) {
 });
 
 // 直播状态
-let AvALiveStatus = false;
-let BellaLiveStatus = false;
-let CarolLiveStatus = false;
-let DianaLiveStatus = false;
-let ElieenLiveStatus = false;
-
 let liveStatus = {
   AvA: false,
   Bella: false,
@@ -17,8 +11,7 @@ let liveStatus = {
   Elieen: false,
 }
 
-console.log(API);
-
+// 监听A-soul member开播
 const listenLiveRoomStatus = async ({ roomId, name, mid }) => {
   const info = await API.getRoomInfo(roomId);
   if (info) {
@@ -45,20 +38,21 @@ const listenLiveRoomStatus = async ({ roomId, name, mid }) => {
   }
 }
 
-// const notifyOptions1 = {
-//   type: 'basic',
-//   title: `嘉然开播啦`,
-//   iconUrl: '/images/logo.png',
-//   message: `嘉然开播啦`, 
-// }
-// setTimeout(() => {
-//   chrome.notifications.create('kaibo', notifyOptions1);
-// }, 2000)
-
-setInterval(async () => {
-  for (const name in memberInfo) {
-    if (Object.hasOwnProperty.call(memberInfo, name)) {
-      await listenLiveRoomStatus(memberInfo[name]);
+// 监听进程
+const listenLiveRoomMain = () => {
+  console.log('开始监听直播间');
+  let listenLiveRoomStatusId = setInterval(async () => {
+    for (const name in memberInfo) {
+      if (Object.hasOwnProperty.call(memberInfo, name)) {
+        await listenLiveRoomStatus(memberInfo[name]);
+      }
     }
-  }
-}, 30000);
+  }, 30000);
+  return listenLiveRoomStatusId;
+}
+
+function closeSetInterval(id) {
+  clearInterval(id);
+}
+
+let listenId = listenLiveRoomMain();
