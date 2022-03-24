@@ -1,0 +1,41 @@
+{
+  "name": "A-soul工具箱",
+  "description": "为一个魂提供全方位A-soul相关信息推送与工具",
+  "version": "0.1",
+  "manifest_version": 2,
+  "background": {
+    "page": "background.html"
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "notifications",
+    "unlimitedStorage",
+    "contextMenus",
+    "cookies",
+    "declarativeContent",
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "matches": ["https://t.bilibili.com/*"],
+      "js": ["js/execute-js/bilibili-index.js", "js/execute-js/show-all-liver.js"],
+      "run_at": "document_end"
+    },
+    {
+      "all_frames": true,
+      "matches": ["https://www.bilibili.com/video/*"],
+      "js": ["js/execute-js/video-tool.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "16": "/images/logo.png",
+    "32": "/images/logo.png",
+    "48": "/images/logo.png",
+    "128": "/images/logo.png"
+  }
+}
