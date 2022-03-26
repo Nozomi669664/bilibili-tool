@@ -25,7 +25,7 @@
       width:100% !important;
     }
     
-    .content .card {
+    .content div[class="card"] {
       width: 50% !important;
       height: calc(100% - 8px) !important;
       margin-top: 8px !important;

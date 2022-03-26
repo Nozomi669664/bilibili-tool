@@ -5,41 +5,49 @@ const memberInfo = {
       CN: '向晚',
       EN: 'AvA',
     },
-    mid: '672346917',
-    roomId: '22625025',
+    mid: 672346917,
+    roomId: 22625025,
   },
   Bella: {
     name: {
       CN: '贝拉',
       EN: 'Bella',
     },
-    mid: '672353429',
-    roomId: '22632424',
+    mid: 672353429,
+    roomId: 22632424,
   },
   Carol: {
     name: {
       CN: '珈乐',
       EN: 'Carol',
     },
-    mid: '351609538',
-    roomId: '22634198',
+    mid: 351609538,
+    roomId: 22634198,
   },
   Diana: {
     name: {
       CN: '嘉然',
       EN: 'Diana',
     },
-    mid: '672328094',
-    roomId: '22637261',
+    mid: 672328094,
+    roomId: 22637261,
   },
   Elieen: {
     name: {
       CN: '乃琳',
       EN: 'Elieen',
     },
-    mid: '672342685',
-    roomId: '22625027',
+    mid: 672342685,
+    roomId: 22625027,
   },
+  test: {
+    name: {
+      CN: 'test',
+      EN: 'test',
+    },
+    mid: 106017013,
+    roomId: 13308358,
+  }
 }
 
 const Tool = {
@@ -150,6 +158,7 @@ const API = {
       console.log('getLiver', error);
     }
   },
+  // 获取用户卡片信息
   getCard: async (mid) => {
     try {
       let res = await API.Get({
@@ -164,6 +173,7 @@ const API = {
       console.log('getCard', error);
     }
   },
+  // 通过房间号获取直播间状态
   getRoomInfo: async (roomId) => {
     try {
       let res = await API.Get({
@@ -177,6 +187,7 @@ const API = {
       console.log('getRoomInfo', error);
     }
   },
+  // 通过uid获取用户信息
   getUserInfo: async (mid) => {
     try {
       let res = await API.Get({
@@ -189,5 +200,5 @@ const API = {
     } catch (error) {
       console.log('getRoomInfo', error);
     }
-  }
+  },
 }
