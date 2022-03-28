@@ -45,8 +45,8 @@ const membersInfo = [
       CN: 'test',
       EN: 'test',
     },
-    mid: 106017013,
-    roomId: 13308358,
+    mid: 193584,
+    roomId: 24065,
   }
 ]
 
@@ -126,14 +126,15 @@ const Tool = {
 const API = {
   // 封装get方法
   Get: async (props) => {
-    const { url: baseUrl, params = {} } = props;
+    const { url: baseUrl, params = {}, option = {} } = props;
     let pStr = Object.keys(params).map((key) => {
       return `${key}=${params[key]}`;
     }).join('&');
     let url = `${baseUrl}${pStr !== '' ? '?' : ''}${pStr}`;
     try {
       let res = await fetch(url, {
-        credentials: "include"
+        credentials: "include",
+        ...option,
       });
       return (await res.json()).data;
     } catch (error) {
@@ -141,7 +142,7 @@ const API = {
     }
   },
   Post: async (props) => {
-    const { url, params = {}, headers = {} } = props;
+    const { url, params = {}, headers = {}, option = {} } = props;
     try {
       let res = await fetch(url, {
         method: 'post',
@@ -151,6 +152,7 @@ const API = {
         body: JSON.stringify({
           ...params
         }),
+        ...option,
       });
       return (await res.json()).data;
     } catch (error) {
@@ -219,7 +221,7 @@ const API = {
     }
   },
   // 通过mid批量获取主播直播状态
-  getStatusZInfoByUids:async (midArr) => {
+  getStatusZInfoByUids: async (midArr) => {
     try {
       let res = await API.Post({
         url: 'http://api.live.bilibili.com/room/v1/Room/get_status_info_by_uids',
@@ -233,6 +235,35 @@ const API = {
       return res;
     } catch (error) {
       console.log('getRoomInfo', error);
+    }
+  },
+  // 通过视频地址获取短链
+  getShortUrl: async (url) => {
+    let baseUrl = 'https://api.bilibili.com/x/share/click';
+    let paramsData = {
+      build: 6180000,
+      buvid: 'test',
+      oid: url,
+      platform: 'android',
+      share_channel: 'COPY',
+      share_id: 'public.webview.0.0.pv',
+      share_mode: 3
+    }
+    try {
+      let res = await API.Post({
+        url: baseUrl,
+        params: {
+          ...paramsData,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        option: {
+          credentials: 'omit',
+        }
+      });
+    } catch (error) {
+      console.log('getShortUrl', error);
     }
   },
 }

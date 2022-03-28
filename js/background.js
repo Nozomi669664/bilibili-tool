@@ -31,7 +31,7 @@ const listenLiveRoomStatus = async (info) => {
           imageUrl: info.cover_from_user,
           message: info.title, 
         };
-        chrome.notifications.create(name, notifyOptions);
+        chrome.notifications.create(`${name}-${(new Date()).getTime()}`, notifyOptions);
         // 修改liveStatus
         liveStatus[name] = !liveStatus[name];
       }
@@ -68,9 +68,12 @@ const closeSetInterval = (id) => {
 // 当提示信息被点击时
 chrome.notifications.onClicked.addListener((e) => {
   // console.log(membersInfo[e]);
-  let info = membersInfo[e];
+  let name = e.split('-')[0];
+  let roomId = membersInfo.find((item) => {
+    return item.name.EN === name;
+  }).roomId;
   let createProperties = {
-    url: `https://live.bilibili.com/${info.roomId}`,
+    url: `https://live.bilibili.com/${roomId}`,
   };
   chrome.tabs.create(createProperties);
 })
