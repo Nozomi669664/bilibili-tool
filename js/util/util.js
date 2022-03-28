@@ -1,6 +1,6 @@
 // 成员列表信息
-const memberInfo = {
-  AvA: {
+const membersInfo = [
+  {
     name: {
       CN: '向晚',
       EN: 'AvA',
@@ -8,7 +8,7 @@ const memberInfo = {
     mid: 672346917,
     roomId: 22625025,
   },
-  Bella: {
+  {
     name: {
       CN: '贝拉',
       EN: 'Bella',
@@ -16,7 +16,7 @@ const memberInfo = {
     mid: 672353429,
     roomId: 22632424,
   },
-  Carol: {
+  {
     name: {
       CN: '珈乐',
       EN: 'Carol',
@@ -24,7 +24,7 @@ const memberInfo = {
     mid: 351609538,
     roomId: 22634198,
   },
-  Diana: {
+  {
     name: {
       CN: '嘉然',
       EN: 'Diana',
@@ -32,7 +32,7 @@ const memberInfo = {
     mid: 672328094,
     roomId: 22637261,
   },
-  Elieen: {
+  {
     name: {
       CN: '乃琳',
       EN: 'Elieen',
@@ -40,7 +40,7 @@ const memberInfo = {
     mid: 672342685,
     roomId: 22625027,
   },
-  test: {
+  {
     name: {
       CN: 'test',
       EN: 'test',
@@ -48,7 +48,7 @@ const memberInfo = {
     mid: 106017013,
     roomId: 13308358,
   }
-}
+]
 
 const Tool = {
   // 大数转万
@@ -140,7 +140,24 @@ const API = {
       console.error('Get Error', error);
     }
   },
-  // 通过关键词获取视频数据
+  Post: async (props) => {
+    const { url, params = {}, headers = {} } = props;
+    try {
+      let res = await fetch(url, {
+        method: 'post',
+        headers: {
+          ...headers
+        },
+        body: JSON.stringify({
+          ...params
+        }),
+      });
+      return (await res.json()).data;
+    } catch (error) {
+      console.error('POST Error', error);
+    }
+  },
+  // 通过关键词获取直播列表
   getLiver: async (num = 0) => {
     try {
       let params = {};
@@ -197,6 +214,23 @@ const API = {
         }
       });
       return res
+    } catch (error) {
+      console.log('getRoomInfo', error);
+    }
+  },
+  // 通过mid批量获取主播直播状态
+  getStatusZInfoByUids:async (midArr) => {
+    try {
+      let res = await API.Post({
+        url: 'http://api.live.bilibili.com/room/v1/Room/get_status_info_by_uids',
+        params: {
+          uids: midArr
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      return res;
     } catch (error) {
       console.log('getRoomInfo', error);
     }
