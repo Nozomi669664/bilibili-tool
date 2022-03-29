@@ -124,6 +124,7 @@ const Tool = {
 }
 
 const API = {
+  TRUE_STATUS: 200,
   // 封装get方法
   Get: async (props) => {
     const { url: baseUrl, params = {}, option = {} } = props;
@@ -131,32 +132,36 @@ const API = {
       return `${key}=${params[key]}`;
     }).join('&');
     let url = `${baseUrl}${pStr !== '' ? '?' : ''}${pStr}`;
-    try {
-      let res = await fetch(url, {
-        credentials: "include",
-        ...option,
-      });
+    let res = await fetch(url, {
+      credentials: "include",
+      ...option,
+    });
+    if (res.status === API.TRUE_STATUS) {
       return (await res.json()).data;
-    } catch (error) {
-      console.error('Get Error', error);
+    } else {
+      return {
+        msg: 'fail',
+      }
     }
   },
   Post: async (props) => {
     const { url, params = {}, headers = {}, option = {} } = props;
-    try {
-      let res = await fetch(url, {
-        method: 'post',
-        headers: {
-          ...headers
-        },
-        body: JSON.stringify({
-          ...params
-        }),
-        ...option,
-      });
+    let res = await fetch(url, {
+      method: 'post',
+      headers: {
+        ...headers
+      },
+      body: JSON.stringify({
+        ...params
+      }),
+      ...option,
+    });
+    if (res.status === API.TRUE_STATUS) {
       return (await res.json()).data;
-    } catch (error) {
-      console.error('POST Error', error);
+    } else {
+      return {
+        msg: 'fail',
+      }
     }
   },
   // 通过关键词获取直播列表

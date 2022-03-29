@@ -16,8 +16,12 @@ const listenLiveRoomStatus = async (info) => {
   if (info) {
     // 获取英文名
     let name = membersInfo.find((item) => {
-      return item.mid === info.uid;
+      return item.roomId === info.room_id;
     }).name.EN;
+    // 如果监控列表无此项，则添加并设置值为false
+    if (liveStatus[name] == undefined) {
+      liveStatus[name] = false;
+    }
     // 如果正在开播
     if (info.live_status === 1) {
       // 判断是否为第一次监测到
@@ -50,6 +54,10 @@ const listenLiveRoomMain = async (time = 30000) => {
   let listenLiveRoomStatusId = setInterval(async () => {
     let midArr = membersInfo.map((member) => (member.mid));
     let info = await API.getStatusZInfoByUids(midArr);
+    if (info.msg === 'fail') {
+      console.error('getStatusZInfoByUids请求失败');
+      return;
+    }
     for (const key in info) {
       if (Object.hasOwnProperty.call(info, key)) {
         const item = info[key];
@@ -61,13 +69,14 @@ const listenLiveRoomMain = async (time = 30000) => {
   return listenLiveRoomStatusId;
 }
 
+// 停止监听直播间
 const closeSetInterval = (id) => {
   clearInterval(id);
+  console.log('停止监听直播间');
 }
 
 // 当提示信息被点击时
 chrome.notifications.onClicked.addListener((e) => {
-  // console.log(membersInfo[e]);
   let name = e.split('-')[0];
   let roomId = membersInfo.find((item) => {
     return item.name.EN === name;
