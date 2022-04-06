@@ -112,15 +112,6 @@ const Tool = {
     }
     return false;
   },
-  English2Chinese: (EnglishName) => {
-    for (const name in memberInfo) {
-      if (Object.hasOwnProperty.call(memberInfo, name)) {
-        if (name === EnglishName) {
-          return memberInfo[name].name;
-        }
-      }
-    }
-  }
 }
 
 const API = {
@@ -137,7 +128,7 @@ const API = {
       ...option,
     });
     if (res.status === API.TRUE_STATUS) {
-      return (await res.json()).data;
+      return (await res.json());
     } else {
       return {
         msg: 'fail',
@@ -157,7 +148,7 @@ const API = {
       ...option,
     });
     if (res.status === API.TRUE_STATUS) {
-      return (await res.json()).data;
+      return (await res.json());
     } else {
       return {
         msg: 'fail',
@@ -177,7 +168,7 @@ const API = {
         url: 'https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/w_live_users',
         params,
       });
-      return res;
+      return res.data;
     } catch (error) {
       console.log('getLiver', error);
     }
@@ -192,7 +183,7 @@ const API = {
           photo: 'true',
         },
       });
-      return res;
+      return res.data;
     } catch (error) {
       console.log('getCard', error);
     }
@@ -206,7 +197,7 @@ const API = {
           id: roomId
         }
       });
-      return res
+      return res.data;
     } catch (error) {
       console.log('getRoomInfo', error);
     }
@@ -220,7 +211,7 @@ const API = {
           mid: mid
         }
       });
-      return res
+      return res.data;
     } catch (error) {
       console.log('getRoomInfo', error);
     }
@@ -237,7 +228,7 @@ const API = {
           'Content-Type': 'application/json',
         }
       });
-      return res;
+      return res.data;
     } catch (error) {
       console.log('getRoomInfo', error);
     }
@@ -267,6 +258,7 @@ const API = {
           credentials: 'omit',
         }
       });
+      return res.data;
     } catch (error) {
       console.log('getShortUrl', error);
     }
