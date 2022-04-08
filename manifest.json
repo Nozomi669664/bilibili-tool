@@ -27,13 +27,19 @@
     {
       "all_frames": true,
       "matches": ["https://t.bilibili.com/*"],
-      "js": ["js/execute-js/bilibili-index.js", "js/execute-js/show-all-liver.js"],
+      "js": [
+        "js/execute-js/bilibili-index.js",
+        "js/execute-js/show-all-liver.js"
+      ],
       "run_at": "document_end"
     },
     {
       "all_frames": true,
       "matches": ["https://www.bilibili.com/video/*"],
-      "js": ["js/execute-js/video-tool.js"],
+      "js": [
+        "js/execute-js/video-tool.js",
+        "js/execute-js/short-url.js"
+      ],
       "run_at": "document_end"
     }
   ],

@@ -89,3 +89,15 @@ chrome.notifications.onClicked.addListener((e) => {
 
 // 启动监听任务
 let listenId = listenLiveRoomMain();
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  setTimeout(async () => {
+    if (request.type === 'getShortUrl') {
+      let data = await API.getShortUrl(request.url);
+      sendResponse({
+        content: data.content || '',
+      });
+    }
+  }, 0)
+  return true;
+});

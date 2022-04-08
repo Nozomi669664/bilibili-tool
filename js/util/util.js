@@ -40,14 +40,14 @@ const membersInfo = [
     mid: 672342685,
     roomId: 22625027,
   },
-  {
-    name: {
-      CN: 'test',
-      EN: 'test',
-    },
-    mid: 193584,
-    roomId: 24065,
-  }
+  // {
+  //   name: {
+  //     CN: 'test',
+  //     EN: 'test',
+  //   },
+  //   mid: 193584,
+  //   roomId: 24065,
+  // }
 ]
 
 const Tool = {
