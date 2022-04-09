@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="widt h=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <title>A-soul Tools background</title>
     <link rel="stylesheet" href="../css/options.css">
     <link rel="stylesheet" href="../css/element-plus.css">
@@ -12,18 +12,37 @@
   <body>
     <div id="app">
       <div class="header"></div>
-      <div class="content">
-        <div class="left-panel side-panel"></div>
-        <div class="center-panel">
-          <form>
-            <div class="form-item" v-for="item in formOptions">
-              <span>{{ item.name }}</span>
-              <el-button>{{ item.name }}</el-button>
-            </div>
-          </form>
-        </div>
-        <div class="right-panel side-panel"></div>
-      </div>
+      <el-row :gutter="20" justify="center" class="content">
+        <el-col :xs="4" :sm="3" :md="3" :lg="3" :xl="3">
+          <div class="left-panel panel"></div>
+        </el-col>
+        <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="8">
+          <div class="center-panel panel">
+            <form>
+              <div class="form-item" v-for="item in formOptions">
+                <span class="form-title">{{ item.name }}</span>
+                <el-button
+                  v-if="item.type === 'button'"
+                  @click="item.onchange(item.name)"
+                >
+                  {{ item.name }}
+                </el-button>
+                <el-switch
+                  v-model="dataForm[item.value]"
+                  :active-value="true"
+                  :inactive-value="false"
+                  v-if="item.type === 'switch'"
+                  active-color="#B8A6D9"
+                  @change="item.onchange"
+                />
+              </div>
+            </form>
+          </div>
+        </el-col>
+        <el-col :xs="4" :sm="3" :md="3" :lg="3" :xl="3">
+          <div class="right-panel panel"></div>
+        </el-col>
+      </el-row>
       <div class="footer"></div>
     </div>
   </body>

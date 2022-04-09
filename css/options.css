@@ -2,7 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  --carol-color: #B8A6D9;
+  font-size: 16px;
+  --carol-color: #b8a6d9;
 }
 
 #app {
@@ -10,9 +11,9 @@
   height: 100vh;
 }
 
-#app>.header {
+#app > .header {
   width: 100vw;
-  min-width: 1000px;
+  min-width: 1350px;
   height: 200px;
   background-image: url(../images/A-SOUL-member-background.png);
   background-size: cover;
@@ -22,8 +23,9 @@
   top: 0;
 }
 
-#app>.content {
+#app > .content {
   width: 100%;
+  min-width: 1200px;
   height: 100%;
   padding-top: 200px;
   /* background-color: var(--carol-color); */
@@ -31,10 +33,19 @@
   justify-content: center;
 }
 
-.content>.side-panel {
-  width: 244px;
+.content .panel {
+  padding-top: 20px;
 }
 
-.content>.center-panel {
-  width: 632px;
+.center-panel .form-item {
+  /* height: 40px; */
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-item > .form-title {
+  display: block;
+  width: 220px;
+  line-height: 100%;
 }
