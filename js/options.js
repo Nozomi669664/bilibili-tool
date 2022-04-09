@@ -8,10 +8,12 @@ const App = {
         },
         {
           name: '是否开启动态首页布局优化',
-        }
+        },
       ],
     }
   }
 }
 
-Vue.createApp(App).mount('#app')
+const app = Vue.createApp(App);
+app.use(ElementPlus);
+app.mount("#app");

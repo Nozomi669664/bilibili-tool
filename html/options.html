@@ -5,7 +5,9 @@
     <meta name="viewport" content="widt h=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <title>A-soul Tools background</title>
     <link rel="stylesheet" href="../css/options.css">
+    <link rel="stylesheet" href="../css/element-plus.css">
     <script src="../js/util/vue.js"></script>
+    <script src="../js/util/element-plus.js"></script>
   </head>
   <body>
     <div id="app">
@@ -16,6 +18,7 @@
           <form>
             <div class="form-item" v-for="item in formOptions">
               <span>{{ item.name }}</span>
+              <el-button>{{ item.name }}</el-button>
             </div>
           </form>
         </div>
