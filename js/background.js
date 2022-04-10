@@ -1,7 +1,3 @@
-chrome.runtime.onInstalled.addListener(function(details) {
-
-});
-
 // 直播状态
 let liveStatus = {
   AvA: false,
@@ -10,6 +6,9 @@ let liveStatus = {
   Diana: false,
   Elieen: false,
 }
+
+// 监听事件任务id
+let listenId;
 
 // 监听A-soul member开播(新)
 const listenLiveRoomStatus = async (info) => {
@@ -87,15 +86,51 @@ chrome.notifications.onClicked.addListener((e) => {
   chrome.tabs.create(createProperties);
 })
 
-// 启动监听任务
-let listenId = listenLiveRoomMain();
+// 新安装或者重刷新插件
+chrome.runtime.onInstalled.addListener((details) => {
+  chrome.storage.local.get(['isListenLiveStatus'], (result) => {
+    if (result.isListenLiveStatus) {
+      listenId = listenLiveRoomMain();
+    }
+  });
+});
 
+// 监听storage
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+    // console.log(
+    //   `Storage key "${key}" in namespace "${namespace}" changed.`,
+    //   `Old value was "${oldValue}", new value is "${newValue}".`
+    // );
+    if (key === 'isListenLiveStatus') {
+      if (newValue) {
+        listenId = listenLiveRoomMain();
+      } else {
+        // 关闭监听
+        closeSetInterval(listenId);
+        // 直播状态全为false
+        Object.keys(liveStatus).forEach((key) => {
+          liveStatus[key] = false;
+        })
+      }
+    }
+  }
+});
+
+// 接收各页面事件并处理
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   setTimeout(async () => {
     if (request.type === 'getShortUrl') {
       let data = await API.getShortUrl(request.url);
       sendResponse({
         content: data.content || '',
+      });
+    }
+    if (request.type === 'getDataFromStorage') {
+      chrome.storage.local.get([...request.keys], (result) => {
+        sendResponse({
+          ...result,
+        });
       });
     }
   }, 0)

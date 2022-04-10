@@ -63,10 +63,20 @@
       }
     }
   `
-  let body = document.body;
-  let styleDom = document.createElement('style');
-  styleDom.id = 'tuntun-bilibili-index'
-  styleDom.innerHTML = styleStr;
-  body.appendChild(styleDom);
+  chrome.runtime.sendMessage(
+    {
+      type: 'getDataFromStorage',
+      keys: ['isIndex'],
+    },
+    (response) => {
+      if (response.isIndex) {
+        let body = document.body;
+        let styleDom = document.createElement('style');
+        styleDom.id = 'tuntun-bilibili-index'
+        styleDom.innerHTML = styleStr;
+        body.appendChild(styleDom);
+      }
+    }
+  );
 })();
 

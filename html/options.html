@@ -12,37 +12,57 @@
   <body>
     <div id="app">
       <div class="header"></div>
-      <el-row :gutter="20" justify="center" class="content">
-        <el-col :xs="4" :sm="3" :md="3" :lg="3" :xl="3">
-          <div class="left-panel panel"></div>
-        </el-col>
-        <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="8">
-          <div class="center-panel panel">
-            <form>
-              <div class="form-item" v-for="item in formOptions">
-                <span class="form-title">{{ item.name }}</span>
-                <el-button
-                  v-if="item.type === 'button'"
-                  @click="item.onchange(item.name)"
-                >
-                  {{ item.name }}
-                </el-button>
-                <el-switch
-                  v-model="dataForm[item.value]"
-                  :active-value="true"
-                  :inactive-value="false"
-                  v-if="item.type === 'switch'"
-                  active-color="#B8A6D9"
-                  @change="item.onchange"
-                />
+      <div class="main">
+        <el-scrollbar>
+          <el-row justify="center" class="content">
+            <el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">
+              <div class="left-panel panel">
+                <el-affix :offset="220">
+                  <el-menu
+                    class="el-menu-vertical-demo"
+                  >
+                    <template v-for="(item, index) in menuOptions" >
+                      <el-menu-item :index="index + ''" @click="menuItemClick(item.name)">
+                        <span>{{ item.name }}</span>
+                      </el-menu-item>
+                    </template>
+                  </el-menu>
+                </el-affix>
               </div>
-            </form>
-          </div>
-        </el-col>
-        <el-col :xs="4" :sm="3" :md="3" :lg="3" :xl="3">
-          <div class="right-panel panel"></div>
-        </el-col>
-      </el-row>
+            </el-col>
+            <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="8">
+              <div class="center-panel panel">
+                <form>
+                  <div class="form-item" v-for="(item, key) in formOptions">
+                    <div class="divider" v-if="item.isDivider === true"></div>
+                    <div class="center-panel-title" :id="item.name" v-if="item.type === 'title'">{{ item.name }}</div>
+                    <div class="item-content">
+                      <span class="form-title" v-if="item.type !== 'title'">{{ item.name }}</span>
+                      <el-button
+                        v-if="item.type === 'button'"
+                        @click="item.onchange"
+                      >
+                        {{ item.name }}
+                      </el-button>
+                      <el-switch
+                        v-if="item.type === 'switch'"
+                        v-model="dataForm[item.value]"
+                        :active-value="true"
+                        :inactive-value="false"
+                        active-color="#B8A6D9"
+                        @change="item.onchange"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </el-col>
+            <el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">
+              <div class="right-panel panel"></div>
+            </el-col>
+          </el-row>
+        </el-scrollbar>
+      </div>
       <div class="footer"></div>
     </div>
   </body>
