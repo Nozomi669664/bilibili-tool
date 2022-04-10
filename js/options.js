@@ -5,6 +5,7 @@ const App = {
       dataForm: {
         isListenLiveStatus: false,
         isIndex: false,
+        isVideoLoop: false,
       },
       formOptions: [
         {
@@ -49,6 +50,23 @@ const App = {
         {
           type: 'title',
           name: '视频设置'
+        },
+        {
+          name: '是否开启默认洗脑循环',
+          type: 'switch',
+          isDivider: true,
+          value: 'isVideoLoop',
+          onchange: (e) => {
+            try {
+              if (chrome.storage) {
+                chrome.storage.local.set({isVideoLoop: e}, () => {
+                  // this.dataForm.isVideoLoop = e;
+                });
+              }
+            } catch (error) {
+              console.log('set isVideoLoop from chrome storage error', error);
+            }
+          }
         },
         {
           type: 'title',

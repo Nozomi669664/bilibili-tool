@@ -85,10 +85,20 @@ let code = `
   });
 })();
 `;
-let script = document.createElement('script');
-script.type = 'module';
-script.id = 'tun-video-tool';
-script.innerHTML = code;
-let scriptTag = document.getElementById('tun-video-tool');
-if (scriptTag) document.body.removeChild(scriptTag);
-document.body.appendChild(script);
+chrome.runtime.sendMessage(
+  {
+    type: 'getDataFromStorage',
+    keys: ['isVideoLoop'],
+  },
+  (response) => {
+    if (response.isVideoLoop) {
+      let script = document.createElement('script');
+      script.type = 'module';
+      script.id = 'tun-video-loop';
+      script.innerHTML = code;
+      let scriptTag = document.getElementById('tun-video-loop');
+      if (scriptTag) document.body.removeChild(scriptTag);
+      document.body.appendChild(script);
+    }
+  }
+);

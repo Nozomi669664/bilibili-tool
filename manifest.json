@@ -38,7 +38,7 @@
       "all_frames": true,
       "matches": ["https://www.bilibili.com/video/*"],
       "js": [
-        "js/execute-js/video-tool.js",
+        "js/execute-js/video-loop.js",
         "js/execute-js/short-url.js"
       ],
       "run_at": "document_end"
