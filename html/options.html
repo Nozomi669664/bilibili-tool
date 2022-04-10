@@ -17,9 +17,10 @@
           <el-row justify="center" class="content">
             <el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">
               <div class="left-panel panel">
-                <el-affix :offset="220">
+                <el-affix :offset="240">
                   <el-menu
                     class="el-menu-vertical-demo"
+                    active-text-color="#b8a6d9"
                   >
                     <template v-for="(item, index) in menuOptions" >
                       <el-menu-item :index="index + ''" @click="menuItemClick(item.name)">
@@ -30,7 +31,7 @@
                 </el-affix>
               </div>
             </el-col>
-            <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="8">
+            <el-col :xs="10" :sm="8" :md="8" :lg="8" :xl="8">
               <div class="center-panel panel">
                 <form>
                   <div class="form-item" v-for="(item, key) in formOptions">

@@ -31,7 +31,7 @@ const App = {
           }
         },
         {
-          name: '是否开启A-soul成员监控',
+          name: '是否开启A-soul成员直播监控',
           type: 'switch',
           isDivider: true,
           value: 'isListenLiveStatus',
@@ -54,7 +54,7 @@ const App = {
         {
           name: '是否开启默认洗脑循环',
           type: 'switch',
-          isDivider: true,
+          isDivider: false,
           value: 'isVideoLoop',
           onchange: (e) => {
             try {
@@ -102,7 +102,7 @@ const App = {
   mounted() {
     try {
       if (chrome.storage) {
-        chrome.storage.local.get(['isListenLiveStatus', 'isIndex'], (result) => {
+        chrome.storage.local.get([...Object.keys(this.dataForm)], (result) => {
           Object.keys(result).forEach((key) => {
             if (result[key] !== undefined) {
               this.dataForm[key] = result[key];
