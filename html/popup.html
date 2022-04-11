@@ -4,12 +4,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <title>A-soul Tools background</title>
-    <link rel="stylesheet" href="./css/popup.css">
-    <script src="../js/util/jquery.min.js"></script>
-    <script src="../js/util/util.js"></script>
+    <link rel="stylesheet" href="../css/popup.css">
+    <link rel="stylesheet" href="../css/element-plus.css">
+    <script src="../js/util/vue.js"></script>
+    <script src="../js/util/element-plus.js"></script>
   </head>
   <body>
-    <button id="changeColor">1111</button>
+    <div id="app">
+      <div class="mian">
+        <el-button @click="openOptionPage">打开选项页</el-button>
+      </div>
+    </div>
+    <script src="../js/util/util.js"></script>
     <script src="../js/popup.js"></script>
   </body>
 </html>

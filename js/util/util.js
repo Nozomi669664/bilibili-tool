@@ -131,7 +131,9 @@ const API = {
       return (await res.json());
     } else {
       return {
-        msg: 'fail',
+        data: {
+          msg: 'fail',
+        },
       }
     }
   },
@@ -151,7 +153,9 @@ const API = {
       return (await res.json());
     } else {
       return {
-        msg: 'fail',
+        data: {
+          msg: 'fail',
+        },
       }
     }
   },

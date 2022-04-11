@@ -1,7 +1,23 @@
-let changeColor = document.getElementById("changeColor");
+const App = {
+  data() {
+    return {
+      
+    }
+  },
+  methods: {
+    openOptionPage() {
+      if (chrome.runtime.openOptionsPage) {
+        chrome.runtime.openOptionsPage();
+      } else {
+        window.open(chrome.runtime.getURL('options.html'));
+      }
+    },
+  },
+  mounted() {
+    
+  },
+}
 
-chrome.storage.sync.get("color", ({ color }) => {
-  changeColor.style.backgroundColor = color;
-  console.log(color);
-  changeColor.innerHTML = '1111'
-});
+const app = Vue.createApp(App);
+app.use(ElementPlus);
+app.mount("#app");

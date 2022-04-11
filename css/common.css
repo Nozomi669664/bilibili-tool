@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --carol-color: #b8a6d9;
+  --carol-color-dark: #a189d2;
+  --carol-color-light: #D1C2EC;
+}
+
+:root {
+  --el-color-primary: #b8a6d9;
+}

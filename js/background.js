@@ -53,8 +53,9 @@ const listenLiveRoomMain = async (time = 30000) => {
   let listenLiveRoomStatusId = setInterval(async () => {
     let midArr = membersInfo.map((member) => (member.mid));
     let info = await API.getStatusZInfoByUids(midArr);
-    if (info.msg === 'fail') {
-      console.error('getStatusZInfoByUids请求失败');
+    if (info.msg !== undefined && info.msg === 'fail') {
+      // 该接口不稳定，所以不用console.error
+      console.log('getStatusZInfoByUids请求失败');
       return;
     }
     for (const key in info) {
