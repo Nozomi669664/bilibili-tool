@@ -167,13 +167,20 @@ const API = {
       ...option,
     });
     if (res.status === API.TRUE_STATUS) {
-      return (await res.json());
-    } else {
+      let data = await res.json()
+      if (data.msg !== 'invalid params') {
+        return (data);
+      }
       return {
         data: {
           msg: 'fail',
         },
       }
+    }
+    return {
+      data: {
+        msg: 'fail',
+      },
     }
   },
   Post: async (props) => {
@@ -190,12 +197,11 @@ const API = {
     });
     if (res.status === API.TRUE_STATUS) {
       return (await res.json());
-    } else {
-      return {
-        data: {
-          msg: 'fail',
-        },
-      }
+    }
+    return {
+      data: {
+        msg: 'fail',
+      },
     }
   },
   // 通过关键词获取直播列表
@@ -256,7 +262,7 @@ const API = {
       });
       return res.data;
     } catch (error) {
-      console.log('getRoomInfo', error);
+      console.log('getUserInfo', error);
     }
   },
   // 通过mid批量获取主播直播状态
@@ -273,7 +279,7 @@ const API = {
       });
       return res.data;
     } catch (error) {
-      console.log('getRoomInfo', error);
+      console.log('getStatusZInfoByUids', error);
     }
   },
   // 通过视频地址获取短链

@@ -84,20 +84,20 @@
       copyBtn.addEventListener('click', () => {
         shortInput.select();
         navigator.clipboard.writeText(shortInput.value).then(() => {
-          onCopyBtnClick(shortInput.getBoundingClientRect().top);
+          onCopyBtnClick(shortInput.getBoundingClientRect());
         })
       })
     }, time);
   }
   // 点击复制按钮
-  const onCopyBtnClick = (top = 1000) => {
+  const onCopyBtnClick = (position = {}) => {
     let pop = document.createElement('div');
     pop.innerHTML = '已成功复制到剪切板';
     pop.className = 'van-message';
     pop.style = `
       position: absolute;
-      left: 234px;
-      top: ${top + window.pageYOffset - 20}px;
+      left: ${(position.left ?? 0)  + 15}px;
+      top: ${(position.top ?? 0) + window.pageYOffset - 20}px;
       z-index: 3000;
     `;
     document.body.appendChild(pop);
