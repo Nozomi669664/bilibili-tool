@@ -40,6 +40,14 @@ const membersInfo = [
     mid: 672342685,
     roomId: 22625027,
   },
+  {
+    name: {
+      CN: 'A-SOUL',
+      EN: 'A-SOUL',
+    },
+    mid: 703007996,
+    roomId: 22632157,
+  }
   // {
   //   name: {
   //     CN: 'test',
@@ -112,6 +120,37 @@ const Tool = {
     }
     return false;
   },
+  // 通过图片网址或base64码将图片复制到剪贴板上
+  copyImg: (src='') => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = src;
+    img.onload = () => {
+      console.dir(img)
+      let nw = img.naturalWidth;
+      let nh = img.naturalHeight;
+      console.log(nw, nh);
+      canvas.width = nw;
+      canvas.height = nh;
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.drawImage(img, 0, 0);
+      canvas.toBlob(async blob => {
+        console.log(blob);
+        const data = [
+          new window.ClipboardItem({
+            [blob.type]: blob,
+          }),
+        ];
+        await navigator.clipboard.write(data).then(() => {
+          console.log("Copied to clipboard successfully!");
+        }, () => {
+          console.error("Unable to write to clipboard.");
+        });
+      });
+    }
+  }
 }
 
 const API = {
