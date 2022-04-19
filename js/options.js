@@ -16,6 +16,7 @@ const App = {
           name: '是否开启动态首页布局优化',
           type: 'switch',
           value: 'isIndex',
+          tooltip: '隐藏原版右侧热门话题，将动态显示变更为双列',
           isDivider: false,
           onchange: (e) => {
             try {
@@ -35,6 +36,7 @@ const App = {
           type: 'switch',
           isDivider: true,
           value: 'isListenLiveStatus',
+          tooltip: '每30s监测一次',
           onchange: (e) => {
             try {
               if (chrome.storage) {

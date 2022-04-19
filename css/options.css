@@ -61,6 +61,7 @@
 }
 
 .form-item .item-content {
+  height: 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,10 +70,20 @@
 
 
 .form-item .form-title {
-  display: block;
-  width: 220px;
+  display: flex;
+  align-items: center;
+  width: 300px;
   line-height: 100%;
   font-size: 16px;
+}
+
+.form-item .form-title .form-title-tooltip {
+  width: 16px;
+  height: 16px;
+  background-image: url(../images/tooltipSvg.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin-left: 8px;
 }
 
 .divider {

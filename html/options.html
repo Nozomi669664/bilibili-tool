@@ -37,8 +37,18 @@
                   <div class="form-item" v-for="(item, key) in formOptions">
                     <div class="divider" v-if="item.isDivider === true"></div>
                     <div class="center-panel-title" :id="item.name" v-if="item.type === 'title'">{{ item.name }}</div>
-                    <div class="item-content">
-                      <span class="form-title" v-if="item.type !== 'title'">{{ item.name }}</span>
+                    <div class="item-content" v-if="item.type !== 'title'">
+                      <div class="form-title">
+                        <div>{{ item.name }}</div>
+                        <el-tooltip
+                          v-if="item.tooltip"
+                          effect="dark"
+                          :content="item.tooltip"
+                          placement="top"
+                        >
+                          <div class="form-title-tooltip"></div>
+                        </el-tooltip>
+                      </div>
                       <el-button
                         v-if="item.type === 'button'"
                         @click="item.onchange"

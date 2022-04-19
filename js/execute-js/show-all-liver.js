@@ -65,7 +65,24 @@
 
   const getListItemTemplete = (prop) => {
     return `
-      <div data-v-5059eddc="" data-v-621fee91="" class="live-panel-item live-up" style="margin-bottom: 20px;"><a data-v-5059eddc="" href="${prop.link}" target="_blank" class="live-up-img" style="background-image: url(&quot;${prop.face.slice(6)}@50w_50h.webp&quot;);" data-userinfo-popup-inited="true"></a><a data-v-5059eddc="" href="${prop.link}" target="_blank" class="live-detail ls-0"><div data-v-5059eddc="" class="up-name line-clamp-1" data-userinfo-popup-inited="true">${prop.uname}</div><div data-v-5059eddc="" class="live-name line-clamp-2">${prop.title}</div></a></div>
+      <div class="bili-dyn-live-users__item" onclick="window.open('${prop.link}');">
+        <div class="bili-dyn-live-users__item__left">
+          <div class="bili-dyn-live-users__item__face-container">
+            <div class="bili-dyn-live-users__item__face">
+              <div class="bili-awesome-img" style="background-image: url(${prop.face.slice(6)}@47w_47h_1c.webp);">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bili-dyn-live-users__item__right">
+          <div class="bili-dyn-live-users__item__uname bili-ellipsis">
+            ${prop.uname}
+          </div>
+          <div class="bili-dyn-live-users__item__title bili-ellipsis">
+            ${prop.title}
+          </div>
+        </div>
+      </div>
     `
   }
 
@@ -126,7 +143,7 @@
     let firstGet = await API.getLiver();
     let liverNum = firstGet.count;
     if (liverNum > 10) {
-      let liveUpListDom = document.querySelector('.live-up-list');
+      let liveUpListDom = document.querySelector('.bili-dyn-live-users__body');
       let allLiver = await API.getLiver(liverNum);
       let addLiverItem = allLiver.items.slice(10);
       addLiverItem.forEach(item => {
