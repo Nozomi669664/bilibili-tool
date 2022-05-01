@@ -7,6 +7,7 @@ const App = {
         isIndex: false,
         isVideoLoop: false,
         isAutoWidescreen: false,
+        isbilibiliHomeStyle: false,
       },
       formOptions: [
         {
@@ -23,12 +24,29 @@ const App = {
             try {
               if (chrome.storage) {
                 chrome.storage.local.set({isIndex: e}, () => {
-                  // console.log('成功');
                   // this.dataForm.isIndex = e;
                 });
               }
             } catch (error) {
               console.log('set isIndex from chrome storage error', error);
+            }
+          }
+        },
+        {
+          name: '是否开启B站首页布局优化',
+          type: 'switch',
+          value: 'isbilibiliHomeStyle',
+          tooltip: '隐藏主页左侧推荐，将推荐视频统一拓展为展示10个',
+          isDivider: true,
+          onchange: (e) => {
+            try {
+              if (chrome.storage) {
+                chrome.storage.local.set({isbilibiliHomeStyle: e}, () => {
+                  // this.dataForm.isbilibiliHomeStyle = e;
+                });
+              }
+            } catch (error) {
+              console.log('set isbilibiliHomeStyle from chrome storage error', error);
             }
           }
         },

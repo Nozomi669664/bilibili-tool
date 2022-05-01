@@ -45,6 +45,14 @@
         "js/execute-js/short-url.js"
       ],
       "run_at": "document_end"
+    },
+    {
+      "all_frames": true,
+      "matches": ["*://www.bilibili.com/"],
+      "js": [
+        "js/execute-js/bilibili-home.js"
+      ],
+      "run_at": "document_end"
     }
   ],
   "icons": {
