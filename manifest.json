@@ -28,6 +28,9 @@
     {
       "all_frames": true,
       "matches": ["*://t.bilibili.com/*"],
+      "css": [
+        "css/show-all-liver.css"
+      ],
       "js": [
         "js/execute-js/bilibili-index.js",
         "js/execute-js/show-all-liver.js"
