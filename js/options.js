@@ -6,6 +6,7 @@ const App = {
         isListenLiveStatus: false,
         isIndex: false,
         isVideoLoop: false,
+        isAutoWidescreen: false,
       },
       formOptions: [
         {
@@ -67,6 +68,23 @@ const App = {
               }
             } catch (error) {
               console.log('set isVideoLoop from chrome storage error', error);
+            }
+          }
+        },
+        {
+          name: '是否开启默认宽屏',
+          type: 'switch',
+          isDivider: true,
+          value: 'isAutoWidescreen',
+          onchange: (e) => {
+            try {
+              if (chrome.storage) {
+                chrome.storage.local.set({isAutoWidescreen: e}, () => {
+                  // this.dataForm.isAutoWidescreen = e;
+                });
+              }
+            } catch (error) {
+              console.log('set isAutoWidescreen from chrome storage error', error);
             }
           }
         },
