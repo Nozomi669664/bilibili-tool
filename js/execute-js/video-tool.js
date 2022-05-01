@@ -67,6 +67,7 @@
         }
       });
       window.addEventListener('popstate', function (event) {
+        const newBv = location.pathname;
         if(response.isVideoLoop) {
           repeat();
         }
