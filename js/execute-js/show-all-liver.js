@@ -65,23 +65,25 @@
 
   const getListItemTemplete = (prop) => {
     return `
-      <div class="bili-dyn-live-users__item" onclick="window.open('${prop.link}');">
-        <div class="bili-dyn-live-users__item__left">
-          <div class="bili-dyn-live-users__item__face-container">
-            <div class="bili-dyn-live-users__item__face">
-              <div class="bili-awesome-img" style="background-image: url(${prop.face.slice(6)}@47w_47h_1c.webp);">
+      <div class="bili-dyn-live-users__item">
+        <a href="${prop.link}" target="_blank" style="display: flex">
+          <div class="bili-dyn-live-users__item__left">
+            <div class="bili-dyn-live-users__item__face-container">
+              <div class="bili-dyn-live-users__item__face">
+                <div class="bili-awesome-img" style="background-image: url(${prop.face.slice(6)}@47w_47h_1c.webp);">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="bili-dyn-live-users__item__right">
-          <div class="bili-dyn-live-users__item__uname bili-ellipsis">
-            ${prop.uname}
+          <div class="bili-dyn-live-users__item__right">
+            <div class="bili-dyn-live-users__item__uname bili-ellipsis">
+              ${prop.uname}
+            </div>
+            <div class="bili-dyn-live-users__item__title bili-ellipsis">
+              ${prop.title}
+            </div>
           </div>
-          <div class="bili-dyn-live-users__item__title bili-ellipsis">
-            ${prop.title}
-          </div>
-        </div>
+        </a>
       </div>
     `
   }
@@ -144,9 +146,10 @@
     let liverNum = firstGet.count;
     if (liverNum > 10) {
       let liveUpListDom = document.querySelector('.bili-dyn-live-users__body');
+      liveUpListDom.innerHTML = '';
       let allLiver = await API.getLiver(liverNum);
-      let addLiverItem = allLiver.items.slice(10);
-      addLiverItem.forEach(item => {
+      // let addLiverItem = allLiver.items.slice(10);
+      allLiver.items.forEach(item => {
         if (liveUpListDom !== null) {
           liveUpListDom.appendChild(Tool.s2d(getListItemTemplete(item)));
         }
