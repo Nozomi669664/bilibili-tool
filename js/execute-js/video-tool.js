@@ -89,7 +89,7 @@
           keys: ['isVideoLoop', 'isAutoWidescreen'],
         },
         (response) => {
-          console.log(response)
+          // console.log(response)
           if(response.isVideoLoop) {
             repeat(1500);
           }
