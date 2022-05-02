@@ -1,11 +1,8 @@
 // 直播状态
-let liveStatus = {
-  AvA: false,
-  Bella: false,
-  Carol: false,
-  Diana: false,
-  Elieen: false,
-}
+let liveStatus = {};
+
+// member
+let membersInfo = defaultMembersInfo;
 
 // 监听事件任务id
 let listenId;
@@ -16,7 +13,7 @@ const listenLiveRoomStatus = async (info) => {
     // 获取英文名
     let name = membersInfo.find((item) => {
       return item.roomId === info.room_id;
-    }).name.EN;
+    }).name;
     // 如果监控列表无此项，则添加并设置值为false
     if (liveStatus[name] == undefined) {
       liveStatus[name] = false;
@@ -53,6 +50,7 @@ const listenLiveRoomMain = async (time = 30000) => {
   let listenLiveRoomStatusId = setInterval(async () => {
     let midArr = membersInfo.map((member) => (member.mid));
     let info = await API.getStatusZInfoByUids(midArr);
+    console.log(info);
     if (info.msg !== undefined && info.msg === 'fail') {
       // 该接口不稳定，所以不用console.error
       console.log('getStatusZInfoByUids请求失败');
@@ -79,7 +77,7 @@ const closeSetInterval = (id) => {
 chrome.notifications.onClicked.addListener((e) => {
   let name = e.split('-')[0];
   let roomId = membersInfo.find((item) => {
-    return item.name.EN === name;
+    return item.name === name;
   }).roomId;
   let createProperties = {
     url: `https://live.bilibili.com/${roomId}`,
@@ -94,15 +92,14 @@ chrome.runtime.onInstalled.addListener((details) => {
       listenId = listenLiveRoomMain();
     }
   });
+  chrome.storage.local.set({
+    membersInfo: defaultMembersInfo,
+  })
 });
 
 // 监听storage
 chrome.storage.onChanged.addListener((changes, namespace) => {
   for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
-    // console.log(
-    //   `Storage key "${key}" in namespace "${namespace}" changed.`,
-    //   `Old value was "${oldValue}", new value is "${newValue}".`
-    // );
     if (key === 'isListenLiveStatus') {
       if (newValue) {
         listenId = listenLiveRoomMain();
@@ -114,6 +111,9 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
           liveStatus[key] = false;
         })
       }
+    }
+    if (key === 'membersInfo') {
+      membersInfo = newValue;
     }
   }
 });
@@ -132,6 +132,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         sendResponse({
           ...result,
         });
+      });
+    }
+    if (request.type === 'getLiveStatus') {
+      sendResponse({
+        liveStatus: liveStatus,
       });
     }
   }, 0)

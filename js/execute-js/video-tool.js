@@ -32,7 +32,9 @@
       let widescreenBtn = document.querySelector(
         '.bilibili-player-video-btn-widescreen'
       );
-      widescreenBtn.click();
+      if (widescreenBtn) {
+        widescreenBtn.click();
+      }
     }, time);
   };
 
@@ -92,7 +94,7 @@
         (response) => {
           // console.log(response)
           if(response.isVideoLoop) {
-            repeat(1500);
+            repeat(3000);
           }
           if(response.isAutoWidescreen) {
             widescreen(1500);

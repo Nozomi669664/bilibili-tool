@@ -9,6 +9,9 @@ const App = {
         isAutoWidescreen: false,
         isbilibiliHomeStyle: false,
       },
+      addlistenMid: '',
+      membersInfo: [],
+      selectedLiver: [],
       formOptions: [
         {
           type: 'title',
@@ -69,6 +72,9 @@ const App = {
           }
         },
         {
+          type: 'table',
+        },
+        {
           type: 'title',
           name: '视频设置'
         },
@@ -126,20 +132,88 @@ const App = {
     }
   },
   methods: {
-    btnClick (event) {
-      console.log(event); 
+    // 封装ElMessage
+    message (msg = '', type = 'info') {
+      ElementPlus.ElMessage({
+        showClose: true,
+        message: msg,
+        type: type,
+        center: true,
+      })
     },
+    // 获取并更新监听成员信息
+    updateMembersInfo () {
+      chrome.storage.local.get(['membersInfo'], (result) => {
+        this.membersInfo = result.membersInfo;
+      });
+    },
+    // 侧边栏点击事件
     menuItemClick (e) {
       this.centerContentTitle = e;
       let jumpArr = document.querySelector(`div[id=${e}]`);
       jumpArr.parentElement.scrollIntoView({
         behavior: 'smooth',
       });
+    },
+    // 添加监听项事件
+    async addListenClick (e) {
+      try {
+        if (this.membersInfo.every((item) => {
+          return item.mid !== parseInt(this.addlistenMid.trim());
+        })) {
+          const data = await API.getUserInfo(this.addlistenMid.trim());
+          if (data && data.live_room) {
+            const roomid = data.live_room.roomid;
+            const name = data.name;
+            const mid = data.mid;
+            this.membersInfo.push({
+              name,
+              roomId: roomid,
+              mid: mid,
+            });
+            chrome.storage.local.set({
+              membersInfo: Array.from(this.membersInfo),
+            }, () => {
+              this.message('添加成功', 'success');
+            });
+          } else if (!data) {
+            this.message('没有这个用户', 'error');
+          } else {
+            this.message('该用户没有直播间', 'error');
+          }
+        } else {
+          this.message('已经添加过', 'error');
+        }
+      } catch (error) {
+        console.log(error, '添加错误');
+        this.message('添加错误', 'error');
+      }
+    },
+    // 监听项选中事件
+    liverSelectionChange (selectedData) {
+      this.selectedLiver = selectedData;
+    },
+    // 移除已选监听
+    deleteLiver (e) {
+      const deleteLiverMids = this.selectedLiver.map(item => item.mid);
+      const newMembersInfo = this.membersInfo.filter((item) => {
+        if (deleteLiverMids.indexOf(item.mid) !== -1) {
+          return false;
+        }
+        return true;
+      });
+      chrome.storage.local.set({
+        membersInfo: newMembersInfo,
+      }, () => {
+        this.membersInfo = newMembersInfo;
+        this.message('移除成功', 'success');
+      });
     }
   },
   mounted() {
     try {
       if (chrome.storage) {
+        // 初始化表单内容
         chrome.storage.local.get([...Object.keys(this.dataForm)], (result) => {
           Object.keys(result).forEach((key) => {
             if (result[key] !== undefined) {
@@ -147,6 +221,8 @@ const App = {
             }
           });
         });
+        // 获取并更新监听成员信息
+        this.updateMembersInfo();
       }
     } catch (error) {
       console.log('get from chrome storage error', error);
