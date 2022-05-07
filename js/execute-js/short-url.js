@@ -62,31 +62,35 @@
       //创建文本框，获得短链
       let shareUl = document.querySelector(".share-address>ul");
       let shareLi = document.createElement('li');
-      shareUl.append(shareLi);
-      shareLi.innerHTML = '<span class= "name">视频短链</span><input id="link3" type="text" name><span class="btn">复制</span>';
-      let shortInput = document.querySelector("#link3");
-      shortInput.value = shortUrl;
-
-      let style = document.createElement('style');
-      style.innerHTML = `
-        .van-message-show {
-          transform:translateY(-25px);
-          transition: opacity .3s,transform .3s;
-          transition-timing-function:ease,ease;
-          transition-property:opacity,transform;
-          transition-duration:0.3s,0.3s;
-        }
-      `;
-      document.querySelector('body').append(style);
-
-      //绑定复制事件
-      let copyBtn = shareLi.querySelector(".btn");
-      copyBtn.addEventListener('click', () => {
-        shortInput.select();
-        navigator.clipboard.writeText(shortInput.value).then(() => {
-          onCopyBtnClick(shortInput.getBoundingClientRect());
+      try {
+        shareUl.append(shareLi);
+        shareLi.innerHTML = '<span class= "name">视频短链</span><input id="link3" type="text" name><span class="btn">复制</span>';
+        let shortInput = document.querySelector("#link3");
+        shortInput.value = shortUrl;
+  
+        let style = document.createElement('style');
+        style.innerHTML = `
+          .van-message-show {
+            transform:translateY(-25px);
+            transition: opacity .3s,transform .3s;
+            transition-timing-function:ease,ease;
+            transition-property:opacity,transform;
+            transition-duration:0.3s,0.3s;
+          }
+        `;
+        document.querySelector('body').append(style);
+  
+        //绑定复制事件
+        let copyBtn = shareLi.querySelector(".btn");
+        copyBtn.addEventListener('click', () => {
+          shortInput.select();
+          navigator.clipboard.writeText(shortInput.value).then(() => {
+            onCopyBtnClick(shortInput.getBoundingClientRect());
+          })
         })
-      })
+      } catch (error) {
+        console.log(error);
+      }
     }, time);
   }
   // 点击复制按钮

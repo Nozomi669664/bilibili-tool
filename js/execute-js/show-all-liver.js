@@ -146,14 +146,16 @@
     let liverNum = firstGet.count;
     if (liverNum > 10) {
       let liveUpListDom = document.querySelector('.bili-dyn-live-users__body');
-      liveUpListDom.innerHTML = '';
-      let allLiver = await API.getLiver(liverNum);
-      // let addLiverItem = allLiver.items.slice(10);
-      allLiver.items.forEach(item => {
-        if (liveUpListDom !== null) {
-          liveUpListDom.appendChild(Tool.s2d(getListItemTemplete(item)));
-        }
-      });
+      if (liveUpListDom) {
+        liveUpListDom.innerHTML = '';
+        let allLiver = await API.getLiver(liverNum);
+        // let addLiverItem = allLiver.items.slice(10);
+        allLiver.items.forEach(item => {
+          if (liveUpListDom !== null) {
+            liveUpListDom.appendChild(Tool.s2d(getListItemTemplete(item)));
+          }
+        });
+      }
     }
   }
  

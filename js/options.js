@@ -195,19 +195,23 @@ const App = {
     },
     // 移除已选监听
     deleteLiver (e) {
-      const deleteLiverMids = this.selectedLiver.map(item => item.mid);
-      const newMembersInfo = this.membersInfo.filter((item) => {
-        if (deleteLiverMids.indexOf(item.mid) !== -1) {
-          return false;
-        }
-        return true;
-      });
-      chrome.storage.local.set({
-        membersInfo: newMembersInfo,
-      }, () => {
-        this.membersInfo = newMembersInfo;
-        this.message('移除成功', 'success');
-      });
+      if (this.selectedLiver.length !== 0) {
+        const deleteLiverMids = this.selectedLiver.map(item => item.mid);
+        const newMembersInfo = this.membersInfo.filter((item) => {
+          if (deleteLiverMids.indexOf(item.mid) !== -1) {
+            return false;
+          }
+          return true;
+        });
+        chrome.storage.local.set({
+          membersInfo: newMembersInfo,
+        }, () => {
+          this.membersInfo = newMembersInfo;
+          this.message('移除成功', 'success');
+        });
+      } else {
+        this.message('所选项为空', 'warning');
+      }
     }
   },
   mounted() {
