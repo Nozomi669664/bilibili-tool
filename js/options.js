@@ -161,6 +161,10 @@ const App = {
         if (this.membersInfo.every((item) => {
           return item.mid !== parseInt(this.addlistenMid.trim());
         })) {
+          if (this.addlistenMid.trim() === '') {
+            this.message('不能为空', 'warning');
+            return;
+          }
           const data = await API.getUserInfo(this.addlistenMid.trim());
           if (data && data.live_room) {
             const roomid = data.live_room.roomid;
