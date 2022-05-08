@@ -155,6 +155,7 @@
             liveUpListDom.appendChild(Tool.s2d(getListItemTemplete(item)));
           }
         });
+        document.querySelector('.bili-dyn-live-users__title span').innerHTML = `(${allLiver.items.length})`
       }
     }
   }
