@@ -141,10 +141,10 @@
     `
   }
 
-  const init = async () => {
+  const init = async (isReflash = false) => {
     let firstGet = await API.getLiver();
     let liverNum = firstGet.count;
-    if (liverNum > 10) {
+    if (isReflash || liverNum > 10) {
       let liveUpListDom = document.querySelector('.bili-dyn-live-users__body');
       if (liveUpListDom) {
         liveUpListDom.innerHTML = '';
@@ -166,17 +166,21 @@
     const refleshBtn = Tool.s2d(`
       <button style="background: white; color: #99a2aa; cursor: pointer; border: #99a2aa;font-size: 12px;">刷新</button>
     `);
-    header.insertBefore(refleshBtn, more);
-    refleshBtn.addEventListener('click', async () => {
-      refleshBtn.innerHTML = '正在刷新';
-      await init();
-      refleshBtn.innerHTML = '刷新';
-    });
-    refleshBtn.onmouseover = () => {
-      refleshBtn.style.color = '#00a1d6';
-    }
-    refleshBtn.onmouseout  = () => {
-      refleshBtn.style.color = '#99a2aa';
+    try {
+      header.insertBefore(refleshBtn, more);
+      refleshBtn.addEventListener('click', async () => {
+        refleshBtn.innerHTML = '正在刷新';
+        await init(true);
+        refleshBtn.innerHTML = '刷新';
+      });
+      refleshBtn.onmouseover = () => {
+        refleshBtn.style.color = '#00a1d6';
+      }
+      refleshBtn.onmouseout  = () => {
+        refleshBtn.style.color = '#99a2aa';
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
  

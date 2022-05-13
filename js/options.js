@@ -54,7 +54,7 @@ const App = {
           }
         },
         {
-          name: '是否开启A-soul成员直播监控',
+          name: '是否开启直播监控',
           type: 'switch',
           isDivider: true,
           value: 'isListenLiveStatus',
