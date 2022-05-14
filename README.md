@@ -15,15 +15,14 @@
 - [ ] B站主页
   - [ ] 主页自定义分区（默认A-soul）（尚未迁移）
   - [x] 主页布局优化（隐藏主页左侧推荐，将推荐视频统一拓展为展示10个）
-  
-  ![img](https://gitee.com/tun_tun/images/raw/master/bilibili-tool/bili-index.png)
+  - [ ] <img src="https://gitee.com/tun_tun/images/raw/master/bilibili-tool/bili-index.png" alt="img" style="zoom: 33%;" />
   
 - [x] 动态首页（由于B站正在更新动态首页UI，该部分可能重做）
   - [x] 动态首页左侧直播栏显示所有正在直播的up（B站默认显示10个）（迁移完成）
   
   在更多左侧新增了一个刷新按钮，可以点击刷新直播列表（无需刷新整个页面）
   
-  <img src="https://gitee.com/tun_tun/images/raw/master/bilibili-tool/show-all-liver.gif" alt="img" style="zoom: 33%;" />
+  <img src="https://gitee.com/tun_tun/images/raw/master/bilibili-tool/show-all-liver.gif" />
   
   - [x] 动态首页动态展示优化（双列）（迁移完成）
   
