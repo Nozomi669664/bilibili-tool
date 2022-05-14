@@ -16,18 +16,18 @@
   - [ ] 主页自定义分区（默认A-soul）（尚未迁移）
   - [x] 主页布局优化（隐藏主页左侧推荐，将推荐视频统一拓展为展示10个）
   
-  ![image-20220502000548619](./README.assets/image-20220502000548619.png)
+  ![img](https://gitee.com/tun_tun/images/raw/master/bilibili-tool/bili-index.png)
   
 - [x] 动态首页（由于B站正在更新动态首页UI，该部分可能重做）
   - [x] 动态首页左侧直播栏显示所有正在直播的up（B站默认显示10个）（迁移完成）
   
-  <img src="./README.assets/%E4%BE%A7%E8%BE%B9liver.gif" alt="侧边liver" style="zoom:33%;" />
-  
   在更多左侧新增了一个刷新按钮，可以点击刷新直播列表（无需刷新整个页面）
+  
+  <img src="https://gitee.com/tun_tun/images/raw/master/bilibili-tool/show-all-liver.gif" alt="img" style="zoom: 33%;" />
   
   - [x] 动态首页动态展示优化（双列）（迁移完成）
   
-  <img src="./README.assets/image-20220501225214575.png" alt="image-20220501225214575" style="zoom: 25%;" />
+  <img src="https://gitee.com/tun_tun/images/raw/master/bilibili-tool/bili-main.png" alt="img" style="zoom: 33%;" />
   
 - [ ] 视频（1day）
   - [x] 默认开启洗脑循环
@@ -36,7 +36,7 @@
   - [x] 默认宽屏模式
   - [x] 快速生成视频（诈骗）短链接
   
-  <img src="./README.assets/image-20220501224946645.png" alt="image-20220501224946645" style="zoom: 50%;" />
+  <img src="https://gitee.com/tun_tun/images/raw/master/bilibili-tool/share-short-url.png" alt="img" style="zoom:50%;" />
   
   - [ ] 评论区小作文快速查重（API已完成）
   
